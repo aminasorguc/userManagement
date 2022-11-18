@@ -123,7 +123,9 @@ function UserList() {
         Header: "Assign",
         Cell: row => (
             <div>
-              {<Button style={{ backgroundColor: "#AFC6D9" }}> Assign </Button>}
+              {(<Link to={`/user/permission/${row.row.original.id}`}>
+                  <Button style={{ backgroundColor: "#AFC6D9" }}> Assign </Button>
+                </Link>)}
             </div>
           ),
           width: 200,

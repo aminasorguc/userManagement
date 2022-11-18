@@ -6,6 +6,7 @@ import { history } from "./helpers/history";
 import UserList from './Users/UserList';
 import UserPage from './Users/UserPage';
 import UserCreate from './Users/UserCreate';
+import PermissionPage from './Users/PermissionPage';
 
 function App() {
   return (
@@ -29,6 +30,12 @@ function App() {
             path="/user/create"
             element={
                 <UserCreate />
+            }
+          />
+          <Route
+            path="/user/permission/:id"
+            element={
+                <PermissionPage />
             }
           />
        </Routes>

@@ -113,3 +113,41 @@ export function userPermission(state = [], action) {
             return state
     }
 }
+
+export function deletePermission(state = [], action) {
+    switch (action.type) {
+        case userConstants.PERMISSION_DELETE:
+            return {
+                loading: true
+            };
+        case userConstants.PERMISSION_DELETE_SUCCES:
+            return {
+                permission: action.permission,
+            };
+        case userConstants.PERMISSION_DELETE_ERROR:
+            return {
+                error: action.error
+            };
+        default:
+            return state
+    }
+}
+
+export function assignPermToUser(state = [], action) {
+    switch (action.type) {
+        case userConstants.PERMISSION_USER_ASSIGN:
+            return {
+                loading: true
+            };
+        case userConstants.PERMISSION_USER_ASSIGN_SUCCESS:
+            return {
+                permissionAssign: action.permission,
+            };
+        case userConstants.PERMISSION_USER_ASSIGN_ERROR:
+            return {
+                error: action.error
+            };
+        default:
+            return state
+    }
+}

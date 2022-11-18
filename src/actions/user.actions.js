@@ -1,7 +1,7 @@
 import { userConstants } from "../constants";
 import { userService } from "../services";
 
-function userUpdate(firstname, lastname, username, password, email, status, id) {
+function userUpdate(firstname, lastname, username, password, email, status, id, permId) {
   function request() {
     return { type: userConstants.USER_UPDATE_REQUEST };
   }
@@ -14,7 +14,7 @@ function userUpdate(firstname, lastname, username, password, email, status, id) 
   return (dispatch) => {
     dispatch(request());
 
-    return userService.userUpdate(firstname, lastname, username, password, email, status, id).then(
+    return userService.userUpdate(firstname, lastname, username, password, email, status, id, permId).then(
       (user) => dispatch(success(user)),
       (error) => dispatch(failure(error.toString()))
     );
@@ -127,11 +127,53 @@ function addUser(firstname, lastname, username, password, email, status) {
   };
 }
 
+function assignPermToUser(code, description, userId) {
+  function request() {
+    return { type: userConstants.PERMISSION_USER_ASSIGN };
+  }
+  function success(permission) {
+    return { type: userConstants.PERMISSION_USER_ASSIGN_SUCCESS, permission };
+  }
+  function failure(error) {
+    return { type: userConstants.PERMISSION_USER_ASSIGN_ERROR, error };
+  }
+  return (dispatch) => {
+    dispatch(request());
+
+    return userService.assignPermToUser(code, description, userId).then(
+      (permission) => dispatch(success(permission)),
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+}
+
+function deletePermission(userId, permId) {
+  function request() {
+    return { type: userConstants.PERMISSION_DELETE };
+  }
+  function success(user) {
+    return { type: userConstants.PERMISSION_DELETE_SUCCES, user };
+  }
+  function failure(error) {
+    return { type: userConstants.PERMISSION_DELETE_ERROR, error };
+  }
+  return (dispatch) => {
+    dispatch(request());
+
+    return userService.deletePermission(userId, permId).then(
+      (user) => dispatch(success(user)),
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+}
+
 export const userActions = {
   userUpdate,
   userFetch,
   getAllUsers,
   deleteUser,
   addUser,
-  getUserPermission
+  getUserPermission,
+  assignPermToUser,
+  deletePermission
 };

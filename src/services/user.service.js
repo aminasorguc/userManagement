@@ -10,7 +10,6 @@ function isJson(str) {
 function handleResponse(response) {
   return response.text().then((text) => {
     let data = isJson(text) === true ? JSON.parse(text) : text;
-    console.log(response)
     if (!response.ok) {
       let error = '';
       if (
@@ -34,7 +33,13 @@ function buildAddUserRequestData(firstname, lastname, username, password, email,
   };
 }
 
-function buildRequestData(firstname, lastname, username, password, email, status, id) {
+function buildAddPermRequestData(code, description, userId) {
+  return {
+    code, description, userId
+  };
+}
+
+function buildRequestData(firstname, lastname, username, password, email, status, id, permId) {
   return {
     id,
     firstname,
@@ -43,6 +48,7 @@ function buildRequestData(firstname, lastname, username, password, email, status
     password,
     email,
     status,
+    permId: [{id: permId}]
   };
 }
 
@@ -55,9 +61,9 @@ function userFetch(id) {
     .then((user) => user);
 }
 
-function userUpdate(firstname, lastname, username, password, email, status, id) {
+function userUpdate(firstname, lastname, username, password, email, status, id, permId) {
     const bodyData = JSON.stringify(
-        buildRequestData(firstname, lastname, username, password, email, status, id)
+        buildRequestData(firstname, lastname, username, password, email, status, id, permId)
       );
     const requestOptions = {
       method: "PUT",
@@ -97,7 +103,7 @@ function getUserPermission(id) {
     headers: { 'Content-Type': 'application/json' }
   };
 
-  return fetch(`https://63760ae67e93bcb006c16c60.mockapi.io/user/${id}/permission`, requestOptions)
+  return fetch(`https://63760ae67e93bcb006c16c60.mockapi.io/user/${id}/permissions`, requestOptions)
     .then(handleResponse)
     .then((user) => user);
 }
@@ -117,11 +123,40 @@ function addUser(firstname, lastname, username, password,email, status) {
     .then((user) => user);
 }
 
+function assignPermToUser(code, description, userId) {
+  const bodyData = JSON.stringify(
+    buildAddPermRequestData(code, description, userId)
+  );
+  const requestOptions = {
+    method: "POST",
+    headers: { 'Content-Type': 'application/json' },
+    body: bodyData,
+  };
+
+  return fetch(`https://63760ae67e93bcb006c16c60.mockapi.io/user/${userId}/permissions`, requestOptions)
+    .then(handleResponse)
+    .then((permission) => permission);
+}
+
+function deletePermission(id, permId) {
+  console.log(id)
+  const requestOptions = {
+    method: "DELETE",
+    headers: { 'Content-Type': 'application/json' }
+  };
+
+  return fetch(`https://63760ae67e93bcb006c16c60.mockapi.io/user/${id}/permissions/${permId}`, requestOptions)
+    .then(handleResponse)
+    .then((user) => user);
+}
+
 export const userService = {
   userFetch,
   getAllUsers,
   deleteUser,
   addUser,
   userUpdate,
-  getUserPermission
+  getUserPermission,
+  assignPermToUser,
+  deletePermission
 };

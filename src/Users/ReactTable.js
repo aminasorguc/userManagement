@@ -1,6 +1,7 @@
 
 import { useTable, usePagination, useSortBy, useFilters, useGlobalFilter } from 'react-table'
 import { DefaultFilterForColumn} from "./Filters";
+import { Icon } from "semantic-ui-react";
 
 function ReactTable({ columns, data, sortBy }) {
     // Use the state and functions returned from useTable to build your UI
@@ -36,7 +37,7 @@ function ReactTable({ columns, data, sortBy }) {
     // Render the UI for your table
     return (
         <div>
-        <table className="border-collapse border border-slate-400 mx-auto mt-6"  {...getTableProps()}>
+        <table className="border border-slate-600 mx-auto mt-6 bg-white rounded"  {...getTableProps()}>
         <thead>
         {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -57,8 +58,8 @@ function ReactTable({ columns, data, sortBy }) {
                 <span>
                     {column.isSorted
                       ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
+                        ? <Icon name="angle down" />
+                        : <Icon name="angle up" />
                       : ""}
                   </span>
                   <br />
@@ -113,6 +114,7 @@ function ReactTable({ columns, data, sortBy }) {
                   <svg aria-hidden="true" className="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
               </button>
               <select
+                className='ml-2 rounded border-gray-700'
                 value={pageSize}
                 onChange={(e) => setPageSize(Number(e.target.value))}
               >
