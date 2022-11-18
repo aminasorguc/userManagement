@@ -39,7 +39,7 @@ function buildAddPermRequestData(code, description, userId) {
   };
 }
 
-function buildRequestData(firstname, lastname, username, password, email, status, id, permId) {
+function buildRequestData(firstname, lastname, username, password, email, status, id) {
   return {
     id,
     firstname,
@@ -47,8 +47,7 @@ function buildRequestData(firstname, lastname, username, password, email, status
     username,
     password,
     email,
-    status,
-    permId: [{id: permId}]
+    status
   };
 }
 
@@ -63,7 +62,7 @@ function userFetch(id) {
 
 function userUpdate(firstname, lastname, username, password, email, status, id, permId) {
     const bodyData = JSON.stringify(
-        buildRequestData(firstname, lastname, username, password, email, status, id, permId)
+        buildRequestData(firstname, lastname, username, password, email, status, id)
       );
     const requestOptions = {
       method: "PUT",

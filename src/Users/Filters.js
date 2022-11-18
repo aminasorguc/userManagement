@@ -12,7 +12,6 @@ export function DefaultFilterForColumn({
    <Input
      value={filterValue || ""}
      onChange={(e) => {
-       // Set undefined to remove the filter entirely
        setFilter(e.target.value || undefined);
      }}
      placeholder={`Search ${length} records..`}

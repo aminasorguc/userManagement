@@ -1,7 +1,7 @@
 import { userConstants } from "../constants";
 import { userService } from "../services";
 
-function userUpdate(firstname, lastname, username, password, email, status, id, permId) {
+function userUpdate(firstname, lastname, username, password, email, status, id) {
   function request() {
     return { type: userConstants.USER_UPDATE_REQUEST };
   }
@@ -14,7 +14,7 @@ function userUpdate(firstname, lastname, username, password, email, status, id, 
   return (dispatch) => {
     dispatch(request());
 
-    return userService.userUpdate(firstname, lastname, username, password, email, status, id, permId).then(
+    return userService.userUpdate(firstname, lastname, username, password, email, status, id).then(
       (user) => dispatch(success(user)),
       (error) => dispatch(failure(error.toString()))
     );

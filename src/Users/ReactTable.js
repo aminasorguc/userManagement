@@ -4,17 +4,13 @@ import { DefaultFilterForColumn} from "./Filters";
 import { Icon } from "semantic-ui-react";
 
 function ReactTable({ columns, data, sortBy }) {
-    // Use the state and functions returned from useTable to build your UI
     const {
       getTableProps,
       getTableBodyProps,
       headerGroups,
-      rows,
       prepareRow,
-      pageCount,
       canPreviousPage,
       canNextPage,
-      gotoPage,
       nextPage,
       previousPage,
       setPageSize,
@@ -33,8 +29,7 @@ function ReactTable({ columns, data, sortBy }) {
     useSortBy,
     usePagination,
     )
-  
-    // Render the UI for your table
+
     return (
         <div>
         <table className="border border-slate-600 mx-auto mt-6 bg-white rounded"  {...getTableProps()}>
@@ -94,12 +89,6 @@ function ReactTable({ columns, data, sortBy }) {
         </table>
 
         <div>
-          {/* <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-            {'<<'}
-          </button>
-          <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-            {'>>'}
-          </button> */}
           <div className="flex flex-col items-center">
             <span className="text-sm text-gray-700 dark:text-gray-400">
                 Page <span className="font-semibold text-gray-900 dark:text-white">{pageIndex + 1} </span> of <span className="font-semibold text-gray-900 dark:text-white">{pageOptions.length}</span>
@@ -124,19 +113,6 @@ function ReactTable({ columns, data, sortBy }) {
                   </option>
                 ))}
               </select>
-              {/* <span>
-                Go to page
-                <input
-                  type="number"
-                  defaultValue={pageIndex + 1}
-                  onChange={(e) => {
-                    const pageNumber = e.target.value
-                      ? Number(e.target.value) - 1
-                      : 0;
-                    gotoPage(pageNumber);
-                  }}
-                />
-              </span> */}
             </div>
           </div>
         </div>
