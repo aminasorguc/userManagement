@@ -40,6 +40,7 @@ function PermissionPage() {
                   autoClose: 3000,
                   className: 'toastInfoBack',
               });
+              window.location.reload(false)
               } else {
               toast.error('Error assigning permission', {
                   position: toast.POSITION.TOP_CENTER,
@@ -118,7 +119,7 @@ function PermissionPage() {
       onSubmit={handleSubmit(handleRequest)}
       className="flex justify-between"
     >
-      <div className="flex flex-col space-y-5 card p-10 bg-white rounded-sm  w-2/4 border mx-auto">
+      <div className="flex flex-col space-y-5 card p-10 bg-white rounded-sm  w-2/4 border mx-auto mt-4">
         <h1 style={{ color: "#5880A2" }} className="text-xl font-semibold">
           Assign Permissions
         </h1>

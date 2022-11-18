@@ -120,7 +120,7 @@ function UserList() {
           width: 200,
       },
       {
-        Header: "Assign",
+        Header: "Assign Permission",
         Cell: row => (
             <div>
               {(<Link to={`/user/permission/${row.row.original.id}`}>

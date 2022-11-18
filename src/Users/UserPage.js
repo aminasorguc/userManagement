@@ -12,7 +12,6 @@ function UserPage() {
     const [userData, setUserData] = useState('');
 
     const handleRequest = (data) => {
-      console.log(data.active)
         dispatch(
           userActions.userUpdate(
             data.firstname,

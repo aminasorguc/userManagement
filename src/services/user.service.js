@@ -139,7 +139,6 @@ function assignPermToUser(code, description, userId) {
 }
 
 function deletePermission(id, permId) {
-  console.log(id)
   const requestOptions = {
     method: "DELETE",
     headers: { 'Content-Type': 'application/json' }
