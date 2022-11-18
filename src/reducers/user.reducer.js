@@ -59,15 +59,15 @@ export function userList(state = [], action) {
 
 export function deleteUser(state = [], action) {
     switch (action.type) {
-        case userConstants.USER_ID_REQUEST:
+        case userConstants.USER_DELETE_REQUEST:
             return {
                 loading: true
             };
-        case userConstants.USER_ID_SUCCES:
+        case userConstants.USER_DELETE_SUCCES:
             return {
                 user: action.user.responseData,
             };
-        case userConstants.USER_ID_ERROR:
+        case userConstants.USER_DELETE_ERROR:
             return {
                 error: action.error
             };
@@ -87,6 +87,25 @@ export function addUser(state = [], action) {
                 user: action.user.responseData,
             };
         case userConstants.USER_ERROR:
+            return {
+                error: action.error
+            };
+        default:
+            return state
+    }
+}
+
+export function userPermission(state = [], action) {
+    switch (action.type) {
+        case userConstants.USER_PERMISSION:
+            return {
+                loading: true
+            };
+        case userConstants.USER_PERMISSION_SUCCES:
+            return {
+                userPermission: action.user,
+            };
+        case userConstants.USER_PERMISSION_ERROR:
             return {
                 error: action.error
             };

@@ -1,7 +1,7 @@
 import { userConstants } from "../constants";
 import { userService } from "../services";
 
-function userUpdate(firstname, lastname, username, password, email, status, createdAt, id) {
+function userUpdate(firstname, lastname, username, password, email, status, id) {
   function request() {
     return { type: userConstants.USER_UPDATE_REQUEST };
   }
@@ -14,7 +14,7 @@ function userUpdate(firstname, lastname, username, password, email, status, crea
   return (dispatch) => {
     dispatch(request());
 
-    return userService.userUpdate(firstname, lastname, username, password, email, status, createdAt, id).then(
+    return userService.userUpdate(firstname, lastname, username, password, email, status, id).then(
       (user) => dispatch(success(user)),
       (error) => dispatch(failure(error.toString()))
     );
@@ -65,13 +65,13 @@ function getAllUsers() {
 
 function deleteUser(userId) {
   function request() {
-    return { type: userConstants.USER_ID_REQUEST };
+    return { type: userConstants.USER_DELETE_REQUEST };
   }
   function success(user) {
-    return { type: userConstants.USER_ID_SUCCES, user };
+    return { type: userConstants.USER_DELETE_SUCCES, user };
   }
   function failure(error) {
-    return { type: userConstants.USER_ID_ERROR, error };
+    return { type: userConstants.USER_DELETE_ERROR, error };
   }
   return (dispatch) => {
     dispatch(request());
@@ -83,17 +83,27 @@ function deleteUser(userId) {
   };
 }
 
-function addUser(
-  userType,
-  firstName,
-  lastName,
-  userName,
-  password,
-  active,
-  rolegroups,
-  clients,
-  customer
-) {
+function getUserPermission(userId) {
+  function request() {
+    return { type: userConstants.USER_PERMISSION };
+  }
+  function success(user) {
+    return { type: userConstants.USER_PERMISSION_SUCCES, user };
+  }
+  function failure(error) {
+    return { type: userConstants.USER_PERMISSION_ERROR, error };
+  }
+  return (dispatch) => {
+    dispatch(request());
+
+    return userService.getUserPermission(userId).then(
+      (user) => dispatch(success(user)),
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+}
+
+function addUser(firstname, lastname, username, password, email, status) {
   function request() {
     return { type: userConstants.USER_REQUEST };
   }
@@ -107,17 +117,7 @@ function addUser(
     dispatch(request());
 
     return userService
-      .addUser(
-        userType,
-        firstName,
-        lastName,
-        userName,
-        password,
-        active,
-        rolegroups,
-        clients,
-        customer
-      )
+      .addUser(firstname, lastname, username, password, email, status)
       .then(
         (user) => dispatch(success(user)),
         (error) => {
@@ -133,4 +133,5 @@ export const userActions = {
   getAllUsers,
   deleteUser,
   addUser,
+  getUserPermission
 };

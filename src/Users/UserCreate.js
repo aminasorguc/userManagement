@@ -1,64 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { userActions } from "../actions";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 
-function UserPage() {
-    const { id } = useParams();
+function UserCreate() {
     const dispatch = useDispatch();
     const { register, handleSubmit, reset } = useForm();
-    const [userData, setUserData] = useState('');
     const [userPerm, setUserPerm] = useState('');
 
     const handleRequest = (data) => {
-        dispatch(
-          userActions.userUpdate(
-            data.firstname,
-            data.lastname,
-            userData.username,
-            userData.password,
-            data.email,
-            data.active === [] ? false : true,
-            id
-          )
-        ).then((response) => {
-          if(response.type === 'USER_UPDATE_SUCCES'){
-            toast.info('User successfully updated', {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 3000,
-              className: 'toastInfoBack',
-            });
-          } else {
-            toast.error('Error updating user', {
-              position: toast.POSITION.TOP_CENTER,
-              autoClose: 3000,
-              className: 'toastInfoBack',
-            });
-          }
+      dispatch(
+        userActions.addUser(
+          data.firstname,
+          data.lastname,
+          data.username,
+          data.password,
+          data.email,
+          data.active
+        )
+      ).then((response) => {
+        toast.info('User successfully created', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          className: 'toastInfoBack',
         });
-      };
-
-    useEffect(() => {
-        dispatch(userActions.userFetch(id)).then((response) => {
-            setUserData(response.user)
-        });
-        dispatch(userActions.getUserPermission(id)).then((resp) => {
-          setUserPerm(resp.user[0])
       });
-      }, [dispatch, id]);
-    
-      useEffect(() => {
-        let defaultValues = {};
-        defaultValues.firstname = userData.firstname;
-        defaultValues.lastname = userData.lastname;
-        defaultValues.email = userData.email;
-        defaultValues.active = userData.status === true ? ['on'] : [];
-        defaultValues.code = userPerm ? userPerm.code : '';
-        defaultValues.description = userPerm ? userPerm.description : '';
-        reset({ ...defaultValues });
-      }, [reset, userData, userPerm]);
+    };
 
   return (
     <div className="justify-between overflow-x-hidden mx-12">
@@ -98,6 +66,26 @@ function UserPage() {
             name="email"
             {...register("email")}
             placeholder="Email"
+            className="border border-gray-100 h-10 rounded-sm focus:border-gray-500 pl-5 w-2/4"
+          />
+        </div>
+        <div className="flex justify-between items-center">
+          <label>Username </label>
+          <input
+            type="text"
+            name="username"
+            {...register("username")}
+            placeholder="Username"
+            className="border border-gray-100 h-10 rounded-sm focus:border-gray-500 pl-5 w-2/4"
+          />
+        </div>
+        <div className="flex justify-between items-center">
+          <label>Password </label>
+          <input
+            type="password"
+            name="password"
+            {...register("password")}
+            placeholder="Password"
             className="border border-gray-100 h-10 rounded-sm focus:border-gray-500 pl-5 w-2/4"
           />
         </div>
@@ -144,7 +132,7 @@ function UserPage() {
             className="py-2 rounded-sm text-white px-20"
             type="submit"
           >
-            Update User
+            Create User
           </button>
         </div>
       </div>
@@ -153,4 +141,4 @@ function UserPage() {
   );
 }
 
-export default UserPage;
+export default UserCreate;

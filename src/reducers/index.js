@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { userUpdate, userFetch, userList, deleteUser, addUser } from './user.reducer';
+import { userUpdate, userFetch, userList, deleteUser, addUser, userPermission } from './user.reducer';
 
 
 const rootReducer = combineReducers({
@@ -8,6 +8,7 @@ const rootReducer = combineReducers({
   userList,
   deleteUser,
   addUser,
+  userPermission
 });
 
 export default rootReducer;
