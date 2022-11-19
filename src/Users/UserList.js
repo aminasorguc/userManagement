@@ -51,7 +51,15 @@ function UserList() {
       dispatch(
         userActions.getAllUsers()
       ).then((response) => {
-          setList(response.objects)
+          if(response.type === 'USER_LIST_SUCCES'){
+            setList(response.objects)
+          } else {
+            toast.error('Error fetching list of users', {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3000,
+              className: 'toastInfoBack',
+            });
+          }
         });
     }, [ dispatch ]);
 

@@ -21,7 +21,7 @@ function PermissionPage() {
       if(response.type === 'PERMISSION_DELETE_SUCCES'){
         window.location.reload(false)
       } else {
-        toast.error('Error deleting user', {
+        toast.error('Error deleting permission', {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
           className: 'toastInfoBack',

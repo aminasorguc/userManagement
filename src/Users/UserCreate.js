@@ -19,11 +19,19 @@ function UserCreate() {
           data.active
         )
       ).then((response) => {
-        toast.info('User successfully created', {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
-          className: 'toastInfoBack',
-        });
+        if(response.type === 'USER_SUCCES'){
+          toast.info('User successfully created', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            className: 'toastInfoBack',
+          });
+        } else {
+          toast.error('Error creating user', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            className: 'toastInfoBack',
+          });
+        }
       });
     };
 

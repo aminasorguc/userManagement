@@ -41,7 +41,15 @@ function UserPage() {
 
     useEffect(() => {
         dispatch(userActions.userFetch(id)).then((response) => {
+          if(response.type === 'USER_FETCH_SUCCES'){
             setUserData(response.user)
+          } else {
+            toast.error('Error fetching user', {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3000,
+              className: 'toastInfoBack',
+            });
+          }
         });
       }, [dispatch, id]);
     
