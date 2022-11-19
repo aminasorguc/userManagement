@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { userActions } from "../actions";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -6,8 +6,7 @@ import { toast } from 'react-toastify';
 
 function UserCreate() {
     const dispatch = useDispatch();
-    const { register, handleSubmit, reset } = useForm();
-    const [userPerm, setUserPerm] = useState('');
+    const { register, handleSubmit } = useForm();
 
     const handleRequest = (data) => {
       dispatch(
@@ -101,7 +100,7 @@ function UserCreate() {
         <div className="flex items-center justify-end">
           <button
             style={{ backgroundColor: "#AFC6D9" }}
-            className="py-2 rounded-sm text-white px-20 mt-4"
+            className="py-2 rounded px-20 mt-4"
             type="submit"
           >
             Create User

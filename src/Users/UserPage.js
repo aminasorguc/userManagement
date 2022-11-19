@@ -107,7 +107,7 @@ function UserPage() {
         <div className="flex items-center justify-end">
           <button
             style={{ backgroundColor: "#AFC6D9" }}
-            className="py-2 rounded-sm text-white px-20 mt-6"
+            className="py-2 rounded px-20 mt-6"
             type="submit"
           >
             Update User
