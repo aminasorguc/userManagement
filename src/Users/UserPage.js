@@ -41,7 +41,15 @@ function UserPage() {
 
     useEffect(() => {
         dispatch(userActions.userFetch(id)).then((response) => {
+          if(response.type === 'USER_FETCH_SUCCES'){
             setUserData(response.user)
+          } else {
+            toast.error('Error fetching user', {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3000,
+              className: 'toastInfoBack',
+            });
+          }
         });
       }, [dispatch, id]);
     
@@ -107,7 +115,7 @@ function UserPage() {
         <div className="flex items-center justify-end">
           <button
             style={{ backgroundColor: "#AFC6D9" }}
-            className="py-2 rounded-sm text-white px-20 mt-6"
+            className="py-2 rounded px-20 mt-6"
             type="submit"
           >
             Update User

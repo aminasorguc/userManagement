@@ -21,7 +21,7 @@ function PermissionPage() {
       if(response.type === 'PERMISSION_DELETE_SUCCES'){
         window.location.reload(false)
       } else {
-        toast.error('Error deleting user', {
+        toast.error('Error deleting permission', {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
           className: 'toastInfoBack',
@@ -147,7 +147,7 @@ function PermissionPage() {
         <div className="flex items-center justify-end">
           <button
             style={{ backgroundColor: "#AFC6D9" }}
-            className="py-2 rounded-sm text-white px-20 mt-4"
+            className="py-2 rounded px-20 mt-4"
             type="submit"
           >
             Save

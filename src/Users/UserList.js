@@ -51,12 +51,19 @@ function UserList() {
       dispatch(
         userActions.getAllUsers()
       ).then((response) => {
-          setList(response.objects)
+          if(response.type === 'USER_LIST_SUCCES'){
+            setList(response.objects)
+          } else {
+            toast.error('Error fetching list of users', {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 3000,
+              className: 'toastInfoBack',
+            });
+          }
         });
     }, [ dispatch ]);
 
-  const columns = React.useMemo(
-    () => [
+  const columns = [
       {
         Header: "Id",
         accessor: "id",
@@ -130,8 +137,7 @@ function UserList() {
           ),
           width: 200,
       },
-    ],
-  )
+  ]
 
   return (
     <div >
@@ -140,9 +146,9 @@ function UserList() {
           open={open}
           onClose={() => disp({ type: 'close' })}
         >
-          <Modal.Header>Delete Account</Modal.Header>
+          <Modal.Header>Delete User</Modal.Header>
           <Modal.Content>
-            <p>Are you sure you want to delete this account</p>
+            <p>Are you sure you want to delete this user</p>
           </Modal.Content>
           <Modal.Actions>
             <Button negative onClick={() => disp({ type: 'close' })}>
@@ -157,7 +163,7 @@ function UserList() {
           </Modal.Actions>
         </Modal>
         <Link to={`/user/create`}>
-          <Button style={{ backgroundColor: "#AFC6D9" }}> Create User </Button>
+          <button className='inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-500 border-0 border-l border-gray-700 rounded hover:bg-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"'> Create User </button>
         </Link>
         <ReactTable columns={columns} data={list} sortBy={sortBy} />
     </div>
