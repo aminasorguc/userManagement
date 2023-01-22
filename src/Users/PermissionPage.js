@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Button, List, Icon } from "semantic-ui-react";
 import { toast } from 'react-toastify';
+import InputField from "./InputField";
 
 function PermissionPage() {
   const { id } = useParams();
@@ -14,7 +15,6 @@ function PermissionPage() {
   const [userPerm, setUserPerm] = useState('');
 
   const handleDelete = (permId) => {
-    console.log(permId)
     dispatch(
       userActions.deletePermission(id, permId)
     ).then((response) => {
@@ -77,28 +77,22 @@ function PermissionPage() {
           User Permission
         </h1>
         <hr />
-        <div className="flex justify-between items-center">
-          <label>Id </label>
-          <input
-            type="text"
-            name="id"
-            {...register("id")}
-            placeholder="Id"
-            disabled
-            className="border border-gray-100 h-10 rounded-sm focus:border-gray-500 pl-5 w-2/4"
-          />
-        </div>
-        <div className="flex justify-between items-center">
-          <label>Username </label>
-          <input
-            type="text"
-            name="username"
-            {...register("username")}
-            placeholder="Username"
-            disabled
-            className="border border-gray-100 h-10 rounded-sm focus:border-gray-500 pl-5 w-2/4"
-          />
-        </div>
+        <InputField
+          label={"Id"}
+          type="text"
+          name="id"
+          register={register}
+          disabled
+          placeholder="Id"
+        />
+        <InputField
+          label={"Username"}
+          type="text"
+          name="username"
+          register={register}
+          disabled
+          placeholder="Username"
+        />
         <div className="flex justify-between items-center">
           <label>Assigned Permissions </label>
           <List divided verticalAlign='middle' style={{width: "50%"}}>
@@ -124,26 +118,20 @@ function PermissionPage() {
           Assign Permissions
         </h1>
         <hr />
-        <div className="flex justify-between items-center">
-          <label>Code </label>
-          <input
-            type="text"
-            name="code"
-            {...register("code")}
-            placeholder="code"
-            className="border border-gray-100 h-10 rounded-sm focus:border-gray-500 pl-5 w-2/4"
-          />
-        </div>
-        <div className="flex justify-between items-center">
-          <label>Description </label>
-          <input
-            type="text"
-            name="description"
-            {...register("description")}
-            placeholder="description"
-            className="border border-gray-100 h-10 rounded-sm focus:border-gray-500 pl-5 w-2/4"
-          />
-        </div>
+        <InputField
+          label={"Code"}
+          type="text"
+          name="code"
+          register={register}
+          placeholder="Code"
+        />
+         <InputField
+          label={"Description"}
+          type="text"
+          name="description"
+          register={register}
+          placeholder="Description"
+        />
         <div className="flex items-center justify-end">
           <button
             style={{ backgroundColor: "#AFC6D9" }}
